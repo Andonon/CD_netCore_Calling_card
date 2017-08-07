@@ -9,7 +9,7 @@ namespace YourNamespace.Controllers
         [Route("")]
         public string DisplayOptions()
         {
-            return "Use the following URL options for the app, /firstname, /lastname, /age, /favoritecolor. Each will return my info.";
+            return "Use the following URL options for the app, /firstname, /lastname, /age, /favcolor. Each will return my info.";
         }
         
         [HttpGet]
@@ -18,23 +18,38 @@ namespace YourNamespace.Controllers
         {
             return Json("Troy");
         }
-        [HttpGet]
         [Route("lastname")]
         public JsonResult DisplayLastName()
         {
             return Json("Center");
         }
-        [HttpGet]
         [Route("age")]
         public JsonResult DisplayAge()
         {
-            return Json(34);
+            return Json("34");
+        }
+        [Route("favcolor")]
+        public JsonResult DisplayFavColor()
+        {
+            return Json("Red");
         }
         [HttpGet]
-        [Route("favoritecolor")]
-        public JsonResult DisplayFColor()
+        [Route("{firstName}/{lastName}/{age}/{faveColor}")]
+        public JsonResult Jsonify(string firstName, string lastName, int age, string faveColor)
         {
-            return Json("red");
+          var callCard = new {
+            FirstName = firstName,
+            LastName = lastName,
+            Age = age,
+            FaveColor = faveColor
+          };
+          return Json(callCard);
+        }
+        [HttpGet]
+        [Route("bonus")]
+        public IActionResult Index()
+        {
+            return View();
         }
     }
        
